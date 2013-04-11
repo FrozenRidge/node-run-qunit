@@ -1,10 +1,13 @@
 {
   "name": "run-qunit",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Run QUnit in the browser and get the results reported back in Node",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "connect" : "2.7.4"
   },
   "repository": "",
   "keywords": ["qunit", "runner", "test", "browser"],

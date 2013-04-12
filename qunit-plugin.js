@@ -36,8 +36,7 @@
 
   QUnit.done(function(results){
     results.tracebacks = striderErrors;
-    results.url = window.location.href;
-    console.log(">>>>", results);
+    results.url = window.location.pathname;
     post("/strider-report", results, function(){});
   })
 })();

@@ -26,5 +26,33 @@ q.close() // Kill the server
 
 ```
 
+## Passing an ID
+
+If you are testing with many browsers, you may want to pass a job id to
+QUnit so that you can tell which results correspond to which browser etc.
+
+We do this with some creative URL munging. If you enable `opts.useID = true`
+then an url prefixed with a job id will be passed back to the callbacks.
+An example is easier than explaining.
+
+```javascript
+q.start({useID:true}, function(results){
+  console.log(results.id);
+}), cb)
+```
+
+and then the test browser goes to:
+
+```
+GET /foo-job-id/test/index.html
+-> Translates to:
+GET /test/index.html id: foo-job-id
+```
+
+so the console log above will say `foo-job-id`
+
+
+
+
 
 

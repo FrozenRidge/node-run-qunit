@@ -4,15 +4,41 @@ var connect = require('connect')
 
 var server;
 
+// URL jobID regex
+var regex = /^\/(.*?)\//; //Smallest possible first url segment;
+
 module.exports = {
     start: function(opts, results, cb){
       var app = connect()
 
+      if (opts.useID){
+        app.use(function(req, res, next){
+          req.origUrl = req.url;
+          var m = regex.exec(req.url)
+          req.jobID = m && m[1];
+          if (req.jobID){
+            req.url = req.url.replace(regex, '/')
+          }
+          next();
+        })
+      }
+
+
       app.use(connect.bodyParser());
 
       app.use(function(req, res, next){
+
         if (req.url == '/strider-report'){
-          results(req.body);
+          var data = JSON.parse(req.body.data)
+            , m = regex.exec(data.url)
+
+          data.id = m ? m[1] : undefined;
+
+          for (var i = 0; i<data.tracebacks.length; i++){
+            data.tracebacks[i] = JSON.parse(data.tracebacks[i])
+          }
+
+          results(data);
           return res.end("Results received")
 
         } else if (/\/test\/index\.html/.test(req.url)){

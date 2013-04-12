@@ -1,6 +1,6 @@
 {
   "name": "run-qunit",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Run QUnit in the browser and get the results reported back in Node",
   "main": "server.js",
   "scripts": {

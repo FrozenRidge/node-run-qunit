@@ -12,6 +12,8 @@ var opts = {
   testdir : "/path/to/your/test/directory"
 , testpage : "/path/to/your/test/index.html"
 , port: 8090 // Port to use for the server
+
+, middleware: [] // Optional connect middleware to insert.
 }
 
 var cb = function(){} // called after server is started.

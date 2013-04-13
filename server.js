@@ -11,6 +11,7 @@ module.exports = {
     start: function(opts, results, cb){
       var app = connect()
 
+
       if (opts.useID){
         app.use(function(req, res, next){
           req.origUrl = req.url;
@@ -23,6 +24,15 @@ module.exports = {
         })
       }
 
+      if (opts.middleware){
+        if (opts.middleware.length){
+          opts.middleware.forEach(function(m){
+            app.use(m)
+          })
+        } else {
+          app.use(opts.middleware);
+        }
+      }
 
       app.use(connect.bodyParser());
 
@@ -58,6 +68,7 @@ module.exports = {
 
         return next();
       });
+      
 
       app.use(connect.static(opts.testdir))
       server = http.createServer(app)

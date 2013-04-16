@@ -44,8 +44,10 @@ module.exports = {
 
           data.id = m ? m[1] : undefined;
 
-          for (var i = 0; i<data.tracebacks.length; i++){
-            data.tracebacks[i] = JSON.parse(data.tracebacks[i])
+          if (data.tracebacks) {
+            for (var i = 0; i<data.tracebacks.length; i++){
+              data.tracebacks[i] = JSON.parse(data.tracebacks[i])
+            }
           }
 
           results(data);

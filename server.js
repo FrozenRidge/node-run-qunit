@@ -11,6 +11,7 @@ module.exports = {
     start: function(opts, results, cb){
       var app = connect()
 
+      app.use(connect.bodyParser());
 
       if (opts.useID){
         app.use(function(req, res, next){
@@ -34,14 +35,22 @@ module.exports = {
         }
       }
 
-      app.use(connect.bodyParser());
 
       app.use(function(req, res, next){
 
-        if (req.url == '/strider-report'){
+        if (req.url == '/strider-progress'){
           var data = JSON.parse(req.body.data)
             , m = regex.exec(data.url)
+          data.id = m ? m[1] : undefined; 
 
+          if (opts.progressCB){
+            opts.progressCB(null, data);
+          }
+          return res.end("Progress..");
+
+        } else if (req.url == '/strider-report'){
+          var data = JSON.parse(req.body.data)
+            , m = regex.exec(data.url)
           data.id = m ? m[1] : undefined;
 
           if (data.tracebacks) {
@@ -54,7 +63,6 @@ module.exports = {
           return res.end("Results received")
 
         } else if (/\/test\/index\.html/.test(req.url)){
-          console.log("!!>> Strider serve test", req.url)
           var f = fs.readFileSync(opts.testfile, 'utf8')
           // Replace body close tag with script, body
           f = f.replace(/(.*)<\/body>/,

@@ -25,18 +25,28 @@
     req.send(data);
   }
   
-  var striderErrors = [];
+  var striderErrors = []
+    , i = 0
 
   QUnit.log(function(res){
+    i++;
     if (!res || !res.result){
       // Failure:
       striderErrors.push(JSON.stringify(res));
     }
+    if (i%50 == 0){
+      var data = {
+          tests_run: i
+        , tracebacks: striderErrors
+        , url : window.location.pathname
+      }
+      striderErrors = [];
+      post('/strider-progress', data, function(){}); 
+    }
   })
 
   QUnit.done(function(results){
-    // XXX: disable for now - makes HUGE POST bodies which break the node server
-    //results.tracebacks = striderErrors;
+    results.tracebacks = striderErrors;
     results.url = window.location.pathname;
     post("/strider-report", results, function(){});
   })

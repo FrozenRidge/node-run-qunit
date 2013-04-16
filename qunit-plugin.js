@@ -35,7 +35,8 @@
   })
 
   QUnit.done(function(results){
-    results.tracebacks = striderErrors;
+    // XXX: disable for now - makes HUGE POST bodies which break the node server
+    //results.tracebacks = striderErrors;
     results.url = window.location.pathname;
     post("/strider-report", results, function(){});
   })

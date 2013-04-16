@@ -1,16 +1,21 @@
 {
   "name": "run-qunit",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "Run QUnit in the browser and get the results reported back in Node",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "connect" : "2.7.4"
+    "connect": "2.7.4"
   },
   "repository": "",
-  "keywords": ["qunit", "runner", "test", "browser"],
+  "keywords": [
+    "qunit",
+    "runner",
+    "test",
+    "browser"
+  ],
   "author": "Peter Braden <peterbraden@peterbraden.co.uk>",
   "license": "BSD"
 }

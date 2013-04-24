@@ -10,6 +10,7 @@ var regex = /^\/(.*?)\//; //Smallest possible first url segment;
 module.exports = {
     start: function(opts, results, cb){
       var app = connect()
+        , testfileregex = new RegExp(opts.testfile);
 
       app.use(connect.bodyParser());
 
@@ -62,7 +63,7 @@ module.exports = {
           results(data);
           return res.end("Results received")
 
-        } else if (/\/test\/index\.html/.test(req.url)){
+        } else if (testfileregex.test(req.url)){
           var f = fs.readFileSync(opts.testfile, 'utf8')
           // Replace body close tag with script, body
           f = f.replace(/(.*)<\/body>/,

@@ -10,7 +10,7 @@ var regex = /^\/(.*?)\//; //Smallest possible first url segment;
 module.exports = {
     start: function(opts, results, cb){
       var app = connect()
-        , testfileregex = new RegExp(opts.testfile);
+        , testfileregex = new RegExp(opts.testfile.replace(opts.path, ""));
 
       app.use(connect.bodyParser());
 

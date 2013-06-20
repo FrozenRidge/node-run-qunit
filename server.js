@@ -68,6 +68,7 @@ module.exports = {
           // Replace body close tag with script, body
           f = f.replace(/(.*)<\/body>/,
               "$1<script type='text/javascript'>" + 
+                  fs.readFileSync(__dirname + "/json2.js", "utf8") +
                   fs.readFileSync(__dirname + "/qunit-plugin.js", "utf8") + 
                 "</script></body>");
           return res.end(f);
